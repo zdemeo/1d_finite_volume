@@ -5,6 +5,7 @@
 
 import numpy as np
 import scipy.linalg as linalg
+import matplotlib.pyplot as plt
 
 
 def setup_matrix(k, pc, dt, dx, x_len, Ta, Tb):
@@ -83,16 +84,18 @@ Solves a system of Ax=b, where A is a tridiagonal matrix.
     return temp[3]
 
 
-def main():
+def main(dt):
     """
 Main loop.
+    :param dt: Timestep in seconds. NOTE: Implicit solver is unconditionally stable!
+    :return temperature: List of temperatures for each dt.
     """
 
     # Print out every timestep
     verbose = False
 
     t_max = 100.0  # Total simulation time, seconds
-    dt = 1  # Timestep, seconds. NOTE: Implicit solver is unconditionally stable!
+    #dt = 2  # Timestep, seconds. NOTE: Implicit solver is unconditionally stable!
 
     k = 175  # Thermal conductivity, W/m*K
     p = 2770  # Density, kg/m^3
@@ -133,4 +136,7 @@ Main loop.
 
 
 if __name__ == '__main__':
-    t = main()
+    t = main(2)
+
+    plt.plot(t[20])
+    plt.show()
